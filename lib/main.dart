@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const Menu(),
       routes: {
-        '/home':(context) => const Menu(),
-        '/cart':(context) => const Cart(),
+        '/home': (context) => const Menu(),
+        '/cart': (context) => const Cart(null),
       },
     );
   }
