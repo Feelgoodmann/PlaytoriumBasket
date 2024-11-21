@@ -1,5 +1,6 @@
 class Discount {
   String campaignsName;
+  String displayName;
   double discountPercentage;
   double discountStable;
   double everyXCost;
@@ -7,8 +8,15 @@ class Discount {
   String type;
   List<String> categories;
 
-  Discount(this.campaignsName, this.discountPercentage, this.discountStable,
-      this.everyXCost, this.discountRate, this.type, this.categories);
+  Discount(
+      this.campaignsName,
+      this.displayName,
+      this.discountPercentage,
+      this.discountStable,
+      this.everyXCost,
+      this.discountRate,
+      this.type,
+      this.categories);
 }
 
 class Item {
@@ -26,26 +34,28 @@ class Item {
 }
 
 class DataForTest {
-  Discount fixedAmount = Discount("fixedAmount", 0, 50, 0, 0, "Coupon", []);
-  Discount percentageDiscount =
-      Discount("percentageDiscount", 20, 0, 0, 0, "Coupon", []);
+  Discount fixedAmount =
+      Discount("fixedAmount", "Fixed Coupon", 0, 50, 0, 0, "Coupon", []);
+  Discount percentageDiscount = Discount(
+      "percentageDiscount", "Percentage Coupon", 20, 0, 0, 0, "Coupon", []);
   Discount percentageDiscountByItemCategory = Discount(
       "percentageDiscountByItemCategory",
+      "Percentage Discount by Item Category",
       0,
       50,
       0,
       0,
       "On Top",
       ["Clothing", "Accessories", "Electronics"]);
-  Discount discountByPoints = Discount("discountByPoints", 0, 50, 0, 0,
-      "On Top", []); //max at 20% of total price
-  Discount specialCampaign =
-      Discount("specialCampaign", 0, 50, 300, 40, "Seasonal", []);
+  Discount discountByPoints = Discount("discountByPoints", "Discount by Points",
+      0, 50, 0, 0, "On Top", []); //max at 20% of total price
+  Discount specialCampaign = Discount(
+      "specialCampaign", "Special Campaigns", 0, 50, 300, 40, "Seasonal", []);
 
-  Item tShirt = Item("t-shirt", 350, 1, "Clothing");
-  Item hat = Item("hat", 250, 1, "Accessories");
-  Item hoodie = Item("hoodies", 700, 1, "Else");
-  Item watch = Item("watch", 850, 1, "Accessories");
-  Item bag = Item("bag", 640, 1, "Clothing");
-  Item belt = Item("belt", 230, 1, "Accessories");
+  Item tShirt = Item("T-shirt", 350, 1, "Clothing");
+  Item hat = Item("Hat", 250, 1, "Accessories");
+  Item hoodie = Item("Hoodies", 700, 1, "Else");
+  Item watch = Item("Watch", 850, 1, "Accessories");
+  Item bag = Item("Bag", 640, 1, "Clothing");
+  Item belt = Item("Belt", 230, 1, "Accessories");
 }

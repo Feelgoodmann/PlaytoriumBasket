@@ -165,30 +165,38 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Cart"), // You can customize the title here
+        backgroundColor: Colors.blue, // You can customize the background color
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios), // Custom back button
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Menu(), // Navigate back to Menu
+              ),
+            );
+          },
+        ),
+      ),
       body: Container(
-        padding: const EdgeInsets.all(50),
+        padding: const EdgeInsets.all(25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // Back button
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Menu(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.arrow_back_ios),
-            ),
             // Display cart items
             ...?widget.items
                 ?.map(
                   (item) => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(item.name),
-                      Text("\$${item.price}"),
+                      Text(
+                        item.name,
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      Text("\$${item.price}",
+                          style: const TextStyle(fontSize: 18)),
                     ],
                   ),
                 )
@@ -196,13 +204,22 @@ class _CartState extends State<Cart> {
 
             // Group 1: Fixed Coupon or Percentage Coupon (mutually exclusive)
             Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween, // Space out text and checkbox
               children: [
-                const Text("Fixed Coupon"),
+                Text(dataForTest.fixedAmount.displayName,
+                    style: const TextStyle(fontSize: 18)), // Text on the left
                 Checkbox(
                   value: isFixedCouponSelected,
                   onChanged: _selectFixedCoupon,
                 ),
-                const Text("Percentage Coupon"),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(dataForTest.percentageDiscount.displayName,
+                    style: const TextStyle(fontSize: 18)), // Text on the left
                 Checkbox(
                   value: isPercentageCouponSelected,
                   onChanged: _selectPercentageCoupon,
@@ -210,10 +227,13 @@ class _CartState extends State<Cart> {
               ],
             ),
 
-            // Group 2: Percentage Discount by Item Category or Discount by Points (mutually exclusive)
+// Group 2: Percentage Discount by Item Category or Discount by Points (mutually exclusive)
             Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween, // Space out text and checkbox
               children: [
-                const Text("Percentage Discount by Item Category"),
+                Text(dataForTest.percentageDiscountByItemCategory.displayName,
+                    style: const TextStyle(fontSize: 18)), // Text on the left
                 Checkbox(
                   value: isPercentageDiscountByItemCategorySelected,
                   onChanged: _selectPercentageDiscountByItemCategory,
@@ -221,8 +241,11 @@ class _CartState extends State<Cart> {
               ],
             ),
             Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween, // Space out text and checkbox
               children: [
-                const Text("Discount by Points"),
+                Text(dataForTest.discountByPoints.displayName,
+                    style: const TextStyle(fontSize: 18)), // Text on the left
                 Checkbox(
                   value: isDiscountByPointsSelected,
                   onChanged: _selectDiscountByPoints,
@@ -233,6 +256,9 @@ class _CartState extends State<Cart> {
             // Input field for Discount By Points (only appears if Discount By Points is selected)
             if (isDiscountByPointsSelected)
               TextField(
+                style: TextStyle(
+                  fontSize: 16, // Set the desired font size here
+                ),
                 controller: pointsController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -244,8 +270,10 @@ class _CartState extends State<Cart> {
               ),
             // Group 3: Special Campaigns
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Special Campaigns"),
+                Text(dataForTest.specialCampaign.displayName,
+                    style: const TextStyle(fontSize: 18)),
                 Checkbox(
                   value: isSpecialCampaignSelected,
                   onChanged: (selected) {
@@ -261,7 +289,10 @@ class _CartState extends State<Cart> {
             // Display total cost
             Center(
               child: Column(
-                children: [Text("Total: \$${totalCost.toStringAsFixed(2)}")],
+                children: [
+                  Text("Total: \$${totalCost.toStringAsFixed(2)}",
+                      style: const TextStyle(fontSize: 24))
+                ],
               ),
             ),
           ],
